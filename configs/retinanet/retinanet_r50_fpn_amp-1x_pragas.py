@@ -1,15 +1,18 @@
-_base_ = './faster-rcnn_r50_fpn_amp-1x_coco.py'
+_base_ = './retinanet_r50_fpn_amp-1x_coco.py'
 
-# We also need to change the num_classes in head to match the dataset's annotation
+# MMEngine support the following two ways, users can choose
+# according to convenience
+# optim_wrapper = dict(type='AmpOptimWrapper')
+_base_.optim_wrapper.type = 'AmpOptimWrapper'
+
 model = dict(
-    roi_head=dict(
-        bbox_head=dict(
-            num_classes=2,  # your two classes
-        )
+    bbox_head=dict(
+        num_classes=2,  # your two classes
     )
 )
 
-load_from = "https://download.openmmlab.com/mmdetection/v2.0/fp16/faster_rcnn_r50_fpn_fp16_1x_coco/faster_rcnn_r50_fpn_fp16_1x_coco_20200204-d4dc1471.pth"
+load_from = "https://download.openmmlab.com/mmdetection/v2.0/fp16/retinanet_r50_fpn_fp16_1x_coco/retinanet_r50_fpn_fp16_1x_coco_20200702-0dbfb212.pth"
+
 
 data_root = 'data/pragas'
 metainfo = {

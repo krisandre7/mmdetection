@@ -1,3 +1,16 @@
-python tools/test.py configs/faster_rcnn/faster-rcnn_r50_fpn_amp-1x_pragas.py work_dirs/faster-rcnn_r50_fpn_amp-1x_pragas/best_coco_bbox_mAP_iter_2180.pth --show-dir vis_results
+conda create --name openmmlab python=3.8 -y
+conda activate openmmlab
+pip3 install torch==2.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install -U openmim
+pip install mmcv==2.1.0 -f https://download.openmmlab.com/mmcv/dist/cu118/torch2.1/index.html
+pip install -v -e .
+pip install mlflow
 
 python tools/train.py configs/faster_rcnn/faster-rcnn_r50_fpn_amp-1x_pragas.py  
+
+python tools/train.py configs/retinanet/retinanet_r50_fpn_amp-1x_pragas.py
+
+
+python tools/test.py configs/faster_rcnn/faster-rcnn_r50_fpn_amp-1x_pragas.py work_dirs/faster-rcnn_r50_fpn_amp-1x_pragas/best_coco_bbox_mAP_iter_2180.pth --show-dir vis_results
+
+python tools/test.py configs/retinanet/retinanet_r50_fpn_amp-1x_pragas.py work_dirs/retinanet_r50_fpn_amp-1x_pragas/best_coco_bbox_mAP_iter_9660.pth --show-dir outputs
